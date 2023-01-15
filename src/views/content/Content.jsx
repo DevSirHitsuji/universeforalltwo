@@ -21,7 +21,7 @@ export default function Content(props) {
     const getDate = async () => {
       const url = "https://api.nasa.gov/planetary/apod?api_key=" + "kdfNSXeGP6S3lB4RxgB05UXhgxNPIR850imFrlDB" + "&date=" + localStorage.getItem("date");
       const res = await axios.get(url);
-      const data = res.data;
+      const data = await res.data;
       setTitle(data.title)
       setInfo(data.explanation)
       setImgUrl(data.url)
