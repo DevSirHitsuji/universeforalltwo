@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import Preview from '../../components/preview/Preview'
 import MyHeader from '../../components/MyHeader/MyHeader'
-import Info from '../../components/info/info'
+import Info from '../../components/info/Info'
 import MyFooter from '../../components/myFooter/MyFooter'
 
 
