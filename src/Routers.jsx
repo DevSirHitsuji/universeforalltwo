@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Routes, Route, BrowserRouter} from "react-router-dom";
 
 import Content from "./views/content/Content";
-import PutInfo from "./views/putInfo/putInfo";
+import PutInfo from "./views/putInfo/PutInfo";
 
 export default function Routers(props) {
     return(
