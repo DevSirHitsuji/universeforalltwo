@@ -21,19 +21,26 @@ export default function PutInfo(props) {
       }
 
     return (
-        <div>
-        <MyHeader tittle="Universe For All" />
-        <Info 
-            tittle="Wellcome people"
-            description="inset a date bellow and appreciate"
-        />
+        <div className="main">
+        <div className="section">
+           <MyHeader tittle="Universe For All" />
+            <Info 
+                tittle="Wellcome people"
+                description="inset a date bellow and appreciate"
+            />
+            <div>
+                <Input 
+                type="date"
+                placeholder="choice a date..."
+                func={(e) => {localStorage.setItem("date", e.target.value)}}
+                />
+                <button onClick={getDate}>continue</button>
+            </div>
+        </div>
         
-        <Input 
-            type="date"
-            placeholder="choice a date..."
-            func={(e) => {localStorage.setItem("date", e.target.value)}}
-        />
-        <button onClick={getDate}>continue</button>
+
+        
+        
         
         <MyFooter/>
         </div>       
