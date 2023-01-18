@@ -32,11 +32,11 @@ export default function PutInfo(props) {
             return false;
         }
 
-        if (parseInt(date[2]) === parseInt(today[2])) {
+        if (date[2] == today[2]) {
             setError("Maybe today not yet have a content, try later!")
+            return true;
         }
 
-        console.log(date[2], today[2]);
         setError("");
         return true;
     }
