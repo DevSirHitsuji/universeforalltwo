@@ -16,36 +16,35 @@ export default function PutInfo(props) {
     function verify(Today, Date) {
         const today = Today.split("-");
         const date = Date.split("-");
+    
+        if (parseInt(date[0]) < parseInt(today[0])){
+            setError("");
+            return true;
+        }
         
-        if (parseInt(date[0]) > parseInt(today[0])){
-            setError("Date not exist, please, put a valid date!");
-            return false;
+        if ((date[0]) == today[0] && parseInt(date[1]) < parseInt(today[1])){
+            setError("");
+            return true;
         }
 
-        if (parseInt(date[1]) > parseInt(today[1])){
-            setError("Date not exist, please, put a valid date!");
-            return false;
+        if (date[0] == today[0] && date[1] == today[1] && parseInt(date[2]) < parseInt(today[2])){
+            setError("");
+            return true;
         }
 
-        if (parseInt(date[2]) > parseInt(today[2])){
-            setError("Date not exist, please, put a valid date!");
-            return false;
-        }
-
-        if (date[2] == today[2]) {
+        if (date[0] == today[0] && date[1] == today[1] && date[2] == today[2]) {
             setError("Maybe today not yet have a content, try later!")
             return true;
         }
 
-        setError("");
-        return true;
+        setError("Date not exist, please, put a valid date!");
+        return false;
     }
 
     const getDate = async () => {
         const timeElapsed = Date.now();
         const date = new Date(timeElapsed);
         const today = date.toISOString().split("T");
-        console.log(today)
         
         if(verify(today[0], localStorage.getItem("date"))){
             const url = "https://api.nasa.gov/planetary/apod?api_key=" + "kdfNSXeGP6S3lB4RxgB05UXhgxNPIR850imFrlDB" + "&date=" + localStorage.getItem("date");
