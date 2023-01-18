@@ -7,17 +7,55 @@ import MyFooter from "../../components/myFooter/MyFooter"
 
 import {useNavigate } from "react-router-dom"
 import axios from 'axios'
+import { useState } from "react"
 
 export default function PutInfo(props) {
     const navigate = useNavigate();
+    const [error, setError] = useState("");
+
+    function verify(Today, Date) {
+        const today = Today.split("-");
+        const date = Date.split("-");
+        
+        if (parseInt(date[0]) > parseInt(today[0])){
+            setError("Date not exist, please, put a valid date!");
+            return false;
+        }
+
+        if (parseInt(date[1]) > parseInt(today[1])){
+            setError("Date not exist, please, put a valid date!");
+            return false;
+        }
+
+        if (parseInt(date[2]) > parseInt(today[2])){
+            setError("Date not exist, please, put a valid date!");
+            return false;
+        }
+
+        if (parseInt(date[2]) === parseInt(today[2])) {
+            setError("Maybe today not yet have a content, try later!")
+        }
+
+        console.log(date[2], today[2]);
+        setError("");
+        return true;
+    }
+
     const getDate = async () => {
-        const url = "https://api.nasa.gov/planetary/apod?api_key=" + "kdfNSXeGP6S3lB4RxgB05UXhgxNPIR850imFrlDB" + "&date=" + localStorage.getItem("date");
-        const res = await axios.get(url);
-        const data = await res.data;
-        localStorage.setItem("title", data.title)
-        localStorage.setItem("explanation", data.explanation)
-        localStorage.setItem("url", data.url)  
-        navigate("/content")
+        const timeElapsed = Date.now();
+        const date = new Date(timeElapsed);
+        const today = date.toISOString().split("T");
+        console.log(today)
+        
+        if(verify(today[0], localStorage.getItem("date"))){
+            const url = "https://api.nasa.gov/planetary/apod?api_key=" + "kdfNSXeGP6S3lB4RxgB05UXhgxNPIR850imFrlDB" + "&date=" + localStorage.getItem("date");
+            const res = await axios.get(url);
+            const data = await res.data;
+            localStorage.setItem("title", data.title)
+            localStorage.setItem("explanation", data.explanation)
+            localStorage.setItem("url", data.url)  
+            navigate("/content")
+        }
       }
 
     return (
@@ -34,6 +72,7 @@ export default function PutInfo(props) {
                 placeholder="choice a date..."
                 func={(e) => {localStorage.setItem("date", e.target.value)}}
                 />
+                <p className="error">{error}</p>
                 <button onClick={getDate}>continue</button>
             </div>
         </div>
